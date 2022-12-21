@@ -1,0 +1,196 @@
+<%- include('./partials/_header') -%>
+<main>
+  <div class="main-section">
+    <div class="container">
+      <div class="main-section-data">
+        <div class="row">
+          <div class="col-lg-3 col-md-4 pd-left-none no-pd">
+            <div class="main-left-sidebar no-margin">
+              <div class="suggestions full-width">
+                <div class="sd-title">
+                  <h3>Önerilen Bağlantılar</h3>
+                  <i class="la la-ellipsis-v"></i>
+                </div>
+                <div class="suggestions-list">
+                  <div class="suggestion-usd">
+                    <img src="assets/img/elon.jpg" alt="" />
+                    <div class="sgt-text">
+                      <h4>Elon Musk</h4>
+                      <span>CEO, Tesla</span>
+                    </div>
+                    <span><i class="la la-plus"></i></span>
+                  </div>
+                  <div class="suggestion-usd">
+                    <img src="assets/img/bill.jpg" alt="" />
+                    <div class="sgt-text">
+                      <h4>Bill Gates</h4>
+                      <span>Girişimci</span>
+                    </div>
+                    <span><i class="la la-plus"></i></span>
+                  </div>
+                  <div class="suggestion-usd">
+                    <img src="assets/img/steve.jpg" alt="" />
+                    <div class="sgt-text">
+                      <h4>Steve Jobs</h4>
+                      <span>Bilgisayar uzmanı</span>
+                    </div>
+                    <span><i class="la la-plus"></i></span>
+                  </div>
+                  <div class="suggestion-usd">
+                    <img src="assets/img/larry.jpg" alt="" />
+                    <div class="sgt-text">
+                      <h4>Larry Ellison</h4>
+                      <span>İş adamı</span>
+                    </div>
+                    <span><i class="la la-plus"></i></span>
+                  </div>
+                  <div class="suggestion-usd">
+                    <img src="assets/img/mark.jpg" alt="" />
+                    <div class="sgt-text">
+                      <h4>Mark Zuckerberg</h4>
+                      <span>CEO, Meta</span>
+                    </div>
+                    <span><i class="la la-plus"></i></span>
+                  </div>
+                  <div class="suggestion-usd">
+                    <img src="assets/img/jeff.jpg" alt="" />
+                    <div class="sgt-text">
+                      <h4>Jeff Bezos</h4>
+                      <span>Yatırımcı</span>
+                    </div>
+                    <span><i class="la la-plus"></i></span>
+                  </div>
+                  <div class="view-more">
+                    <a href="#" title="">Tüm Önerileri Görüntüle</a>
+                  </div>
+                </div>
+              </div>
+              <div class="tags-sec full-width">
+                <ul>
+                  <li><a href="#" title="">Hakkında</a></li>
+                  <li><a href="#" title="">Gizlilik Politikası</a></li>
+                  <li><a href="#" title="">Kullanıcı Sözleşmesi</a></li>
+                  <li><a href="#" title="">Çerez Politikası</a></li>
+                  <li><a href="#" title="">Telif Hakkı Politikası</a></li>
+                </ul>
+                <div class="cp-sec">
+                  <img src="assets/img/logo.png" alt="" />
+                  <p><img src="images/cp.png" alt="" />Copyright 2022</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-md-8 no-pd">
+            <div class="product-feed-tab current animated fadeIn" id="saved-jobs">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="mange-tab" data-toggle="tab" href="#mange" role="tab"
+                    aria-controls="home" aria-selected="true">Bekleyenler</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="saved-tab" data-toggle="tab" href="#saved" role="tab" aria-controls="profile"
+                    aria-selected="false">Onayladıklarım</a>
+                </li>
+
+
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade active show" id="mange" role="tabpanel" aria-labelledby="mange-tab">
+                  <% if( follow_response.length > 0 ) { %>
+                  <% follow_response.forEach(users=>{ %>
+
+                  <div class="posts-bar">
+                    <div class="post-bar bgclr">
+                      <div class="wordpressdevlp">
+                        <h2><a href="/profile/<%= users.slug %>"><%= users.name %> <%= users.lastname %> </h2></a>
+                        <p>
+                          Kullanıcı sizi takip etmek istiyor
+                        </p>
+                      </div>
+                      <br />
+                      <div class="row no-gutters">
+                        <div class="col-md-6 col-sm-12">
+                          <div class="cadidatesbtn">
+                            <form action="/action/success" method="post">
+                              <input type="hidden" name="slug" value="<%= users.slug %>">
+                              <button type="submit" class="btn btn-primary">
+                                Onayla
+                              </button>
+                              <a href="/action/deleted?slug=<%= users.slug %>" class="btn btn-danger">Reddet</a>
+                            </form>
+                          </div>
+                        </div>
+
+
+
+                        <div class="col-md-6 col-sm-12">
+                          <ul class="bk-links bklink">
+                            <li></li>
+                            <li></li>
+                          </ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <% })%>
+                  <% }else { %>
+                  <div>Şu an istek yok</div>
+                  <%  } %>
+                </div>
+                <div class="tab-pane fade" id="saved" role="tabpanel" aria-labelledby="saved-tab">
+                 <% if(follow_user.length > 0) { %> 
+                  <% follow_user.forEach(followers=> { %>
+                  <div class="posts-bar">
+                    <div class="post-bar bgclr">
+                      <div class="wordpressdevlp">
+                        <h2><a href="/profile/<%= followers.slug %>"><%= followers.name %> <%=followers.lastname%></h2></a>
+                      </div>
+                    </div>
+                  </div>
+                  <% }) %>
+                  <% }else { %>
+                    <div>Takipçiniz yok</div>
+                    <% } %> 
+                </div>
+
+                <div class="tab-pane fade" id="cadidates" role="tabpanel" aria-labelledby="cadidates-tab">
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 pd-right-none no-pd">
+            <div class="ads-section">
+              <div class="ads-header">
+                <h2>
+                  İş ilanları, haberler ve daha fazlası ile ilgili en yeni
+                  gelişmelerden haberdar olun
+                </h2>
+              </div>
+              <div class="ads-body">
+                <a href="#" target="_blank"><img src="assets/img/unilever.jpg" alt="" /></a>
+              </div>
+              <div class="ads-footer">
+                <h2>
+                  <span class="company-name">Unilever</span> şirketindeki
+                  fırsatlardan haberdar olun
+                </h2>
+                <button>Takip Edin.</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script src="assets/js/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+  integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="assets/js/slick.min.js"></script>
+<script src="assets/js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,510 @@
+<%- include('./partials/_header') -%>
+
+<div class="main-section">
+    <div class="container">
+        <div class="main-section-data">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 pd-left-none no-pd">
+                    <div class="main-left-sidebar no-margin">
+                        <div class="user-data full-width">
+                            <div class="user-profile">
+                                <div class="username-dt">
+                                    <div class="usr-pic">
+                                        <img src="assets/img/avatar.png" alt="" />
+                                    </div>
+                                </div>
+                                <div class="user-specs">
+                                    <% user.forEach(users => { %>
+                                    <h3><%= users.name %> <%= users.lastname %></h3>
+                                    <% }) %>
+                                    <span>Senior Business Development Specialist</span>
+                                    <span>Novelty Bilisim</span>
+                                </div>
+                            </div>
+                            <ul class="user-fw-info">
+                                <li>
+                                    <div>
+                                        <span class="info-left">Bağlantılarım</span><span class="info-right">15</span>
+                                    </div>
+                                    <div>
+                                        <span class="info-left">İş Ortaklarım</span><span class="info-right">15</span>
+                                    </div>
+                                    <div>
+                                        <span class="info-left">Aksiyonlarım</span><span class="info-right">15</span>
+                                    </div>
+                                    <div>
+                                        <span class="info-left">Görüntülenmelerim</span><span
+                                            class="info-right">38</span>
+                                    </div>
+
+                                </li>
+                                <li>
+
+                                    <div>
+                                        <span class="info-left"><i
+                                                class="las la-bookmark"></i>Kaydettiklerim</span><span
+                                            class="info-right"></span>
+                                    </div>
+                                    <div>
+                                        <span class="info-left"><i class="las la-smile"></i>Premium
+                                            Avantajları</span><span class="info-right"></span>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-8 no-pd">
+                    <div class="create-post">
+                        <form action="flow-post" method="post">
+                            <div class="create-post-top">
+                                <button type="submit"><i class="las la-edit"></i>Gönderi Oluştur.</button>
+                            </div>
+                            <div class="create-post-body">
+                                <figure class="create-post-avatar">
+                                    <img src="assets/img/avatar.png" alt="image" />
+                                </figure>
+                                <textarea cols="30" rows="10" name="post_textarea" id="post-textarea"
+                                    placeholder="Ne Hakkında Konuşmak İstiyorsunuz?"></textarea>
+
+                            </div>
+                            <div class="create-post-bottom">
+                                <a href="#"><i class="las la-photo-video"></i><span
+                                        class="d-none-xs">Fotoğraf/Video</span></a>
+                                <a href="#" class="exp-bx-open"><i class="las la-chart-bar text-succes"></i><span
+                                        class="d-none-xs">Anket</span></a>
+                                <a href="#" class="exp-bx-open"><i class="las la-calendar-plus"></i>
+                                    <span class="d-none-xs">Etkinlik</span></a>
+                                <a href="#" class="exp-bx-open"><i class="las la-folder"></i>
+                                    <span class="d-none-xs">Talep</span></a>
+                                <a href="#" class="exp-bx-open"><i class="las la-comment-medical"></i>
+                                    <span class="d-none-xs">Öneri</span></a>
+                                <a href="#" class="exp-bx-open"><i class="las la-chalkboard-teacher"></i>
+                                    <span class="d-none-xs">Öneri</span></a>
+                        </form>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="posts-section">
+                    <% posts.forEach(post=>{ %>
+                    <div class="posty">
+                        <div class="post-bar no-margin">
+                            <div class="post_topbar">
+                                <div class="usy-dt">
+                                    <img src="assets/img/mark.jpg" alt="">
+                                    <div class="usy-name">
+                                        <h3><%= post.user.name %></h3>
+                                        <span><i class="las la-history"></i>10 Saat Önce</span>
+                                    </div>
+                                </div>
+                                <div class="ed-opts">
+                                    <a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+                                    <ul class="ed-options">
+                                        <li><a href="#" title=""><i class="fas fa-exclamation"></i> Şikayet Et</a></li>
+                                        <li><a href="#" title=""><i class="fas fa-pen"></i> Düzenle</a></li>
+                                        <li><a href="#" title=""><i class="fas fa-bookmark"></i> Kaydet</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="epi-sec">
+                                <ul class="descp">
+                                    <li><img src="assets/img/unvan.png" alt=""><span>CEO, Meta</span></li>
+                                    <li><img src="assets/img/konum.png" alt=""><span>New York, ABD</span></li>
+                                </ul>
+
+                            </div>
+                            <div class="job_descp">
+
+                                <p><%= post.description %></p>
+
+                            </div>
+                            <div class="job-status-bar">
+                                <ul class="like-com">
+                                    <li>
+                                        <form id="likeform<%= post._id %>">
+                                            <a style="color:white" id="likeclk<%=post._id%>"><i
+                                                    class="fas fa-heart"></i> Beğen</a>
+                                            <input type="hidden" id="like<%= post._id %>" value="<% post._id %>">
+                                            <img src="assets/img/like.png">
+
+                                            <span><%= post.like_counter %></span>
+                                        </form>
+                                        <script>
+                                            var a = document.getElementById('likeclk<%= post._id %>').addEventListener(
+                                                'click',
+                                                function (e) {
+                                                    var isLike = false
+                                                    if (this.style.color === 'white') {
+                                                        isLike = true
+                                                        this.style.color = 'blue'
+
+                                                    } else {
+                                                        this.style.color = 'white'
+                                                        isLike = false
+                                                    }
+                                                    console.log(isLike)
+                                                    var post_id = document.getElementById('like<%=post._id%>').value
+                                                    var xhr = new XMLHttpRequest()
+                                                    xhr.open('POST', '/like')
+                                                    xhr.setRequestHeader('Body', "<%= post._id %>")
+                                                    xhr.setRequestHeader('body1', isLike)
+                                                    xhr.send()
+                                                    setInterval(function () {
+                                                        location.reload()
+                                                    }, 300)
+                                                })
+                                            var form = document.getElementById('likeform<%=post._id%>')
+                                                .addEventListener('submit', function (e) {
+                                                    e.preventDefault()
+                                                })
+                                        </script>
+                                    </li>
+                                    <li><button class="com sly<%= post._id %>"><i class="fas fa-comment-alt"></i>
+                                            Yorum</button>
+                                    </li>
+                                    <li><button class="share"><i class="fas fa-share"></i> Paylaş</button></li>
+                                </ul>
+                                <a href="#"><i class="fas fa-eye"></i><%= post.view_counter %> Görüntülenme</a>
+                            </div>
+                        </div>
+                        <div class="comment-section<%=post._id %>">
+                            <a href="#" class="plus-ic">
+                                <i class="la la-plus"></i>
+                            </a>
+                            <div class="comment-sec">
+                                <ul>
+                                    <% post.comment.forEach(com=>{ %>
+
+                                    <li>
+                                        <div class="comment-list">
+                                            <div class="bg-img">
+                                                <img src="assets/img/bill.jpg" alt="">
+                                            </div>
+                                            <div class="comment">
+                                                <h3><%= com.user.name %></h3>
+                                                <span><i class="las la-history"></i> 3 dakika önce</span>
+                                                <p><%=com.text%> </p>
+                                                <a onclick="sub_comment<%= com._id %>()" title="" class="active"><i
+                                                        class="fa fa-reply-all"></i>Yanıtla</a>
+                                                <form id="sub<%= com._id %>" style="display: none;">
+                                                    <textarea class="form-control" id="textarea<%=com._id%>"
+                                                        rows="3"></textarea>
+                                                    <input type="hidden" value="<%= com._id %>"
+                                                        id="comment_id<%= com._id %>">
+                                                    <input type="hidden" value="<%= post._id %>"
+                                                        id="posts_id<%= post._id %>">
+                                                    <button type="submit" class="btn btn-sm btn-primary "
+                                                        id="btn-comment<%=com._id%>">Ekle</button>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                        <% if(com.child_comment.length > 0)  {%>
+                                        <% com.child_comment.forEach(child=>{ %>
+                                        <ul>
+                                            <li>
+                                                <div class="comment-list">
+                                                    <div class="bg-img">
+                                                        <img src="assets/img/jeff.jpg" alt="">
+                                                    </div>
+                                                    <div class="comment">
+                                                        <h3><%= child.user.name  %></h3>
+                                                        <span><i class="las la-history"></i> 1 dakika önce</span>
+                                                        <p><%= child.text %> </p>
+
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <script>
+                                            function child_comment<%= child._id %> () {
+                                                var sub = document.getElementById('sub<%= child._id %>')
+                                                if (sub.style.display === "none") {
+                                                    sub.style.display = "block";
+                                                    sub.addEventListener('submit', function (e) {
+                                                        
+                                                    })
+                                                    var comment_id = document.getElementById(
+                                                        'comment_id<%=child._id%>').value
+                                                    var btn_comment = document.getElementById(
+                                                        'btn-comment<%=child._id%>').addEventListener('click',
+                                                        function () {
+                                                            var textarea = document.getElementById(
+                                                                'textarea<%=child._id %>').value
+                                                            var posts_id = document.getElementById(
+                                                                'posts_id<%= post._id %>').value
+                                                            var xhr = new XMLHttpRequest()
+                                                            xhr.open('GET', '/comment')
+                                                            xhr.setRequestHeader('Body', comment_id)
+                                                            xhr.setRequestHeader('Body1', textarea)
+                                                            xhr.setRequestHeader('body2', posts_id)
+                                                            xhr.send()
+                                                            sub.style.display = "none";
+                                                            setInterval(function () {
+                                                                location.reload()
+                                                            }, 300)
+                                                        })
+
+                                                } else {
+                                                    sub.style.display = "none";
+                                                }
+
+
+
+                                            }
+                                        </script>
+                                        <% }) %>
+                                        <% } %>
+                                    </li>
+                                    <script>
+                                        function sub_comment<%= com._id %> () {
+                                            var sub = document.getElementById('sub<%= com._id %>')
+                                            if (sub.style.display === "none") {
+                                                sub.style.display = "block";
+                                                sub.addEventListener('submit', function (e) {
+                                                    e.preventDefault()
+                                                })
+                                                var comment_id = document.getElementById('comment_id<%=com._id%>')
+                                                    .value
+                                                var btn_comment = document.getElementById('btn-comment<%=com._id%>')
+                                                    .addEventListener('click', function () {
+                                                        var textarea = document.getElementById(
+                                                            'textarea<%=com._id %>').value
+                                                        var posts_id = document.getElementById(
+                                                            'posts_id<%= post._id %>').value
+                                                        var xhr = new XMLHttpRequest()
+                                                        xhr.open('GET', '/comment')
+                                                        xhr.setRequestHeader('Body', comment_id)
+                                                        xhr.setRequestHeader('Body1', textarea)
+                                                        xhr.setRequestHeader('body2', posts_id)
+                                                        xhr.send()
+                                                        sub.style.display = "none";
+                                                        setInterval(function () {
+                                                            location.reload()
+                                                        }, 300)
+                                                    })
+
+                                            } else {
+                                                sub.style.display = "none";
+                                            }
+
+
+
+                                        }
+                                    </script>
+                                    <%})%>
+
+                                </ul>
+                            </div>
+                            <div class="post-comment">
+                                <div class="cm_img">
+                                    <img src="assets/img/avatar.png" alt="">
+                                </div>
+                                <div class="comment_box">
+                                    <form class="comment_form">
+                                        <input type="text" id="comment_text<%= post._id %>" placeholder="Yorum yaz...">
+                                        <input type="hidden" id="post_id<%= post._id %>" value="<%= post._id %>">
+
+                                        <button type="submit" onclick="comments<%= post._id%>()">Gönder</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        function comments<%= post._id %> () {
+                            var comment_text = document.getElementById('comment_text<%= post._id %>').value
+                            var post_id = document.getElementById('post_id<%= post._id %>').value
+
+                            var xhr = new XMLHttpRequest()
+                            xhr.open("POST", '/comment')
+                            xhr.setRequestHeader('Body', comment_text)
+                            xhr.setRequestHeader('Body1', post_id)
+                            xhr.send()
+                            setInterval(function () {
+                                location.reload()
+                            }, 300)
+                        }
+                    </script>
+
+
+                    <% }) %>
+
+
+                </div>
+
+                <script>
+                    window.onload = function () {
+                        var form = document.querySelectorAll('.comment_form').forEach(function (item) {
+                            item.addEventListener('submit', function (e) {
+
+
+                                e.preventDefault()
+
+                            })
+                        })
+                    }
+                </script>
+
+                <div class="top-profiles">
+                    <div class="pf-hd">
+                        <h3>Öne Çıkan Profiller</h3>
+
+                    </div>
+                    <div class="profiles-slider">
+
+
+
+                        <% users.forEach(user=>{ %> 
+                        <div class="user-profy">
+                            <img src="assets/img/steve.jpg" alt="" />
+                            <h3><%= user.name %> <%= user.lastname %></h3>
+                            <span>Bilgisayar Uzmanı </span>
+                            <ul>
+                                <li>
+                                    <a href="#" title="" class="followw">Takip Et</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="" class="envlp"><img src="assets/img/envelop.png" alt="" /></a>
+                                </li>
+
+                            </ul>
+                            <a href="profile/<%= user.slug %>" title=""">Profili Görüntüle</a>
+                      </div>
+                      <% }) %>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class=" col-lg-3 pd-right-none no-pd">
+                                <div class="ads-section">
+                                    <div class="ads-header">
+                                        <h2>İş ilanları, haberler ve daha fazlası ile ilgili en yeni gelişmelerden
+                                            haberdar olun
+                                        </h2>
+                                    </div>
+                                    <div class="ads-body">
+                                        <a href="#" target="_blank"><img src="assets/img/unilever.jpg" alt=""></a>
+                                    </div>
+                                    <div class="ads-footer">
+                                        <h2><span class="company-name">Unilever</span> şirketindeki fırsatlardan
+                                            haberdar olun
+                                        </h2>
+                                        <button>Takip Edin.</button>
+                                    </div>
+                                </div>
+                                <div class="suggestions full-width">
+                                    <div class="sd-title">
+                                        <h3>Önerilen Bağlantılar</h3>
+                                        <i class="la la-ellipsis-v"></i>
+                                    </div>
+                                    <div class="suggestions-list">
+                                        <div class="suggestion-usd">
+                                            <img src="assets/img/elon.jpg" alt="">
+                                            <div class="sgt-text">
+                                                <h4>Elon Musk</h4>
+                                                <span>CEO, Tesla</span>
+                                            </div>
+                                            <span><i class="la la-plus"></i></span>
+                                        </div>
+                                        <div class="suggestion-usd">
+                                            <img src="assets/img/bill.jpg" alt="">
+                                            <div class="sgt-text">
+                                                <h4>Bill Gates</h4>
+                                                <span>Girişimci</span>
+                                            </div>
+                                            <span><i class="la la-plus"></i></span>
+                                        </div>
+                                        <div class="suggestion-usd">
+                                            <img src="assets/img/steve.jpg" alt="">
+                                            <div class="sgt-text">
+                                                <h4>Steve Jobs</h4>
+                                                <span>Bilgisayar uzmanı</span>
+                                            </div>
+                                            <span><i class="la la-plus"></i></span>
+                                        </div>
+                                        <div class="suggestion-usd">
+                                            <img src="assets/img/larry.jpg" alt="">
+                                            <div class="sgt-text">
+                                                <h4>Larry Ellison</h4>
+                                                <span>İş adamı</span>
+                                            </div>
+                                            <span><i class="la la-plus"></i></span>
+                                        </div>
+                                        <div class="suggestion-usd">
+                                            <img src="assets/img/mark.jpg" alt="">
+                                            <div class="sgt-text">
+                                                <h4>Mark Zuckerberg</h4>
+                                                <span>CEO, Meta</span>
+                                            </div>
+                                            <span><i class="la la-plus"></i></span>
+                                        </div>
+                                        <div class="suggestion-usd">
+                                            <img src="assets/img/jeff.jpg" alt="">
+                                            <div class="sgt-text">
+                                                <h4>Jeff Bezos</h4>
+                                                <span>Yatırımcı</span>
+                                            </div>
+                                            <span><i class="la la-plus"></i></span>
+                                        </div>
+                                        <div class="view-more">
+                                            <a href="#" title="">Tüm Önerileri Görüntüle</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tags-sec full-width">
+                                    <ul>
+                                        <li><a href="#" title="">Hakkında</a></li>
+                                        <li><a href="#" title="">Gizlilik Politikası</a></li>
+                                        <li><a href="#" title="">Kullanıcı Sözleşmesi</a></li>
+                                        <li><a href="#" title="">Çerez Politikası</a></li>
+                                        <li><a href="#" title="">Telif Hakkı Politikası</a></li>
+                                    </ul>
+                                    <div class="cp-sec">
+                                        <img src="assets/img/logo.png" alt="" />
+                                        <p><img src="images/cp.png" alt="" />Copyright 2022</p>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <script>
+        const postform = document.getElementById('post-form')
+        
+        postform.addEventListener('submit',function(e){
+            
+            e.preventDefault()
+            var xhr = new XMLHttpRequest()
+            var number = {
+           value:document.getElementById('post-textarea').value
+         }
+                xhr.open('POST','/flow-post')
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                xhr.send(JSON.stringify(number))
+                
+
+        })
+       
+    </script> -->
+
+
+        <%- include('./partials/_footer') -%>
+
+        <% posts.forEach(post=>{%>
+        <script>
+            $(".sly<%= post._id %>").click(function () {
+
+                $(".comment-section<%= post._id %>").slideToggle("fast");
+            });
+        </script>
+        <% }) %>

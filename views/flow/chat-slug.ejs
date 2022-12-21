@@ -1,0 +1,263 @@
+<%- include('./partials/_header') -%>
+
+<head>
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon.png" />
+  <link rel="stylesheet" href="../assets/css/animate.css" />
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../assets/css/line-awesome.min.css" />
+  <link rel="stylesheet" href="../assets/css/jquery.mCustomScrollbar.min.css" />
+  <link rel="stylesheet" href="../assets/css/all.min.css" />
+  <link rel="stylesheet" href="../assets/css/fontawesome.min.css" />
+  <link rel="stylesheet" href="../assets/css/slick.css" />
+  <link rel="stylesheet" href="../assets/css/slick-theme.css" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/responsive.css" />
+</head>
+<section class="messages-page">
+  <div class="container">
+    <div class="messages-sec">
+      <div class="row">
+        <div class="col-lg-4 col-md-12 no-pdd">
+          <div class="msgs-list">
+            <div class="msg-title">
+              <h3>Mesajlaşma</h3>
+              <ul>
+                <!-- <li>
+                      <a href="#" title=""><i class="fa fa-cog"></i></a>
+                    </li> -->
+                <li class="msg-settings-btn">
+                  <a href="#" title=""><i class="fa fa-ellipsis-v"></i></a>
+                  <ul class="msg-settings">
+                    <li>Görüşmeleri Yönet</li>
+                    <li>Mesaj Talebi Gelen Kutusu</li>
+                    <li>Otomatik Mesaj Ayarla</li>
+                  </ul>
+                </li>
+                
+              </ul>
+            </div>
+            <div class="message-search">
+              <form>
+                <button type="submit" style="margin-right: 25px;"><i class="la la-search"></i></button>
+                <button type="button" class="message-filter">
+                  <i class="las la-filter"></i>
+                  <ul class="msg-filters">
+                    <li>Tüm Mesajlar</li>
+                    <li>Arşivlenenler</li>
+                    <li>Bağlantılarım</li>
+                    <li>Okunmayanlar</li>
+                    <li>İstenmeyen Mesajlar</li>
+                  </ul>
+                </button>
+                <input type="text" name="search" placeholder="Mesajlarda arayın" />
+              </form>
+            </div>
+            <div class="messages-list">
+              <ul>
+                <% chat_user.forEach(users=>{ %>
+                <% users.chat_rooms.forEach(chat_rooms=> {%>
+                <a onclick="prevent()" href="/chat/<%= chat_rooms %>">
+                  <li class="<%= users.slug %>" id="active-class">
+                    <div class="usr-msg-details">
+                      <div class="usr-ms-img">
+                        <img src="../assets/img/steve.jpg" alt="" />
+                        <span class="msg-status"></span>
+                      </div>
+                      <div class="usr-mg-info">
+                        <h3><%= users.name %> <%= users.lastname %></h3>
+                      </div>
+                      <span class="posted_time">05:10</span>
+                      <span class="msg-notifc">1</span>
+                    </div>
+                  </li>
+                </a>
+                <% })%>
+                <% }) %>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8 col-md-12 pd-right-none pd-left-none">
+          <div class="main-conversation-box">
+            <div class="message-bar-head">
+              <div class="usr-msg-details">
+                <div class="usr-ms-img">
+                  <img src="../images/resources/m-img1.png" alt="" />
+                </div>
+                <div class="usr-mg-info">
+                  <h3>Steve Jobs</h3>
+                  <p>Çevrimiçi</p>
+                </div>
+              </div>
+              <div class="usr-msg-settings-btn">
+                <a href="#" title=""><i class="fa fa-ellipsis-v"></i></a>
+                <ul class="usr-msg-settings">
+                  <li>Arşivle</li>
+                  <li>Sil</li>
+                  <li>Okunmadı Olarak İşaretle</li>
+                  <li>Ayarları Yönet</li>
+                  <li>Sessize Al</li>
+                  <li>Rapor Et/Engelle</li>
+                </ul>
+              </div>
+            </div>
+            <div class="messages-line mCustomScrollbar _mCS_1" id="message_main">
+              <!-- Ri messages -->
+           
+            </div>
+            <div class="message-send-area">
+              <form id="form_message_send">
+                <div class="mf-field">
+                  <input type="text" id="message" name="message" placeholder="Bir mesaj yazın..." />
+                  <input type="hidden" value="<%= user[0].email %>" id="email_user">
+
+                  <button type="submit">Gönder</button>
+                </div>
+                <ul>
+                  <li>
+                    <a href="#" title=""><i class="fas fa-smile"></i></a>
+                  </li>
+                  <li>
+                    <a href="#" title=""><i class="fas fa-camera"></i></a>
+                  </li>
+                  <li>
+                    <a href="#" title=""><i class="fas fa-paperclip"></i></a>
+                  </li>
+                </ul>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.5.0/socket.io.js"
+  integrity="sha512-ttqbKrGZiTtSLguBZ2xNvZrhUv02IO/TRq5U6TG5TK90wbaXWup5kIJ1A1tLzjOk5Mea/G4seVNrU+lwTLfAzA=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  const socket = io("https://127.0.0.1:8080/")
+  document.addEventListener('DOMContentLoaded', function () {
+    socket.emit("join", window.location.href.substring(window.location.href.lastIndexOf('/') + 1))
+  })
+
+
+
+  var xhr = new XMLHttpRequest()
+
+  var form_message_send = document.getElementById("form_message_send")
+  form_message_send.addEventListener('submit', function (e) {
+    xhr.onreadystatechange = function () {
+
+
+      if (this.readyState == 4 && this.status == 200) {
+
+
+        console.log(JSON.parse(this.responseText))
+
+      }
+      xhr.open("POST", "/chat-post", true);
+
+      xhr.send();
+    }
+    e.preventDefault()
+    var message_input = document.getElementById("message").value
+    var email_user = document.getElementById("email_user").value
+    xhr.onreadystatechange = function () {
+
+
+      if (this.readyState == 4 && this.status == 200) {
+
+        console.log(JSON.parse(this.responseText))
+
+        socket.emit("send-message", {
+          room: window.location.href.substring(window.location.href.lastIndexOf('/') + 1),
+          message: message_input,
+          email: email_user
+        })
+      }
+    }
+    xhr.open("GET", "/chat-messages", true);
+    xhr.send();
+
+  })
+
+  socket.on("messages", function (message) {
+
+    if (message.user == email_user.value) {
+
+      right_messages(message.message)
+    } else {
+
+      left_messages(message.message)
+    }
+
+  })
+
+  function right_messages(message) {
+    var message_main = document.getElementById("mCSB_1_container")
+    var main_message_box = document.createElement("div")
+    var message_dt = document.createElement("div")
+    var message_inner_dt = document.createElement("div")
+    var p = document.createElement("p")
+    var span = document.createElement("span")
+    var messg_usr_img = document.createElement("div")
+    var img = document.createElement("img")
+
+    message_main.appendChild(main_message_box).appendChild(message_dt)
+      .appendChild(message_inner_dt).appendChild(p)
+    message_dt.appendChild(span)
+    main_message_box.appendChild(messg_usr_img).appendChild(img)
+
+
+    p.innerText = message
+    span.innerText = "11:08"
+
+    main_message_box.setAttribute("class", "main-message-box ta-right ")
+    message_dt.setAttribute("class", "message-dt")
+    message_inner_dt.setAttribute("class", "message-inner-dt")
+    messg_usr_img.setAttribute("class", "messg-usr-img")
+    img.setAttribute("src", "../assets/img/avatar.png")
+    img.setAttribute("alt", "")
+    img.setAttribute("class", "mCS_img_loaded")
+  }
+
+  function left_messages(message) {
+    var message_main = document.getElementById("mCSB_1_container")
+    var main_message_box_st3 = document.createElement("div")
+    var message_dt_st3 = document.createElement("div")
+    var message_inner_dt_1 = document.createElement("div")
+    var p_1 = document.createElement("p")
+    var span_1 = document.createElement("span")
+    var messg_usr_img_1 = document.createElement("div")
+    var img_1 = document.createElement("img")
+
+
+    message_main.appendChild(main_message_box_st3).appendChild(message_dt_st3)
+      .appendChild(message_inner_dt_1).appendChild(p_1)
+    message_dt_st3.appendChild(span_1)
+    main_message_box_st3.appendChild(messg_usr_img_1).appendChild(img_1)
+
+
+    p_1.innerText = message
+    span_1.innerText = "5 dakika önce"
+
+    main_message_box_st3.setAttribute("class", "main-message-box st3")
+    message_dt_st3.setAttribute("class", "message-dt st3")
+    message_inner_dt_1.setAttribute("class", "message-inner-dt")
+    messg_usr_img_1.setAttribute("class", "messg-usr-img")
+    img_1.setAttribute("src", "../assets/img/steve.jpg")
+    img_1.setAttribute("alt", "")
+    img_1.setAttribute("class", "mCS_img_loaded")
+
+  }
+</script>
+</body>
+
+</html>
+<script src="../assets/js/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
+<script src="../assets/js/slick.min.js"></script>
+<script src="../assets/js/jquery.mCustomScrollbar.js"></script>
+<script src="../assets/js/script.js"></script>

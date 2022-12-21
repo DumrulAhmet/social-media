@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/img/favicon.png"
+    />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/line-awesome.min.css" />
+    <link rel="stylesheet" href="assets/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+
+    <title>Projenerasyon: Oturum Açın veya Üye Olun</title>
+  </head>
+
+  <body>
+    <div class="sign-in-page">
+      <div class="signin-popup">
+        <div class="signin-pop">
+          <% if(messages) { %>
+          <div class="div alert alert-warning text-center"><%= messages %></div>
+          <% } %>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="cmp-info">
+                <div class="cm-logo">
+                  <img src="assets/img/logo2.png" alt="" />
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Impedit non esse aspernatur provident ex in quas laudantium.
+                  </p>
+                </div>
+                <img src="assets/img/home.png" alt="" />
+                <div class="login-resources">
+                  <h4>Sosyal Hesap İle Üye Ol</h4>
+                  <ul>
+                    <li>
+                      <a href="/user/google_auth" title="" class="google"
+                        ><i class="lab la-google"></i>Google İle Giriş Yap</a
+                      >
+                    </li>
+                    <li>
+                      <a href="#" title="" class="apple"
+                        ><i class="lab la-apple"></i>Apple İle Giriş Yap</a
+                      >
+                    </li>
+                    <li>
+                      <a href="#" title="" class="linkedin"
+                        ><i class="lab la-linkedin-in"></i>Linkedin İle Giriş
+                        Yap</a
+                      >
+                    </li>
+                    <li>
+                      <a href="#" title="" class="microsoft"
+                        ><i class="lab la-microsoft"></i>Microsoft İle Giriş
+                        Yap</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="login-sec">
+                <ul class="sign-control">
+                  <li data-tab="tab-1" class="animated fadeIn current">
+                    <a href="#" title="">Giriş Yap</a>
+                  </li>
+                  <li data-tab="tab-2" class="animated fadeIn">
+                    <a href="#" title="">Üye Ol</a>
+                  </li>
+                </ul>
+                <div class="sign_in_sec animated fadeIn current" id="tab-1">
+                  <h3>Giriş Yap</h3>
+                  <form action="/login" method="post">
+                    <div class="row">
+                      <div class="col-lg-12 no-pdd">
+                        <div class="sn-field">
+                          <input
+                            type="text"
+                            name="email"
+                            placeholder="Email Adresiniz"
+                          />
+                          <i class="la la-user"></i>
+                        </div>
+                      </div>
+                      <div class="col-lg-12 no-pdd">
+                        <div class="sn-field">
+                          <input
+                            type="password"
+                            name="password"
+                            placeholder="Şifreniz"
+                          />
+                          <i class="la la-lock"></i>
+                        </div>
+                      </div>
+                      <div class="col-lg-12 no-pdd">
+                        <div class="checky-sec">
+                          <div class="fgt-sec">
+                            <input type="checkbox" name="remember_me" id="c1" />
+                            <label for="c1">
+                              <span></span>
+                            </label>
+                            <label class="small" for="c1">Beni Hatırla</label>
+                          </div>
+                          <a href="/user/forgot_password" title=""
+                            >Şifremi Unuttum</a
+                          >
+                        </div>
+                      </div>
+                      <div class="col-lg-12 no-pdd">
+                        <button type="submit" value="submit">Giriş Yap</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="sign_in_sec animated fadeIn" id="tab-2">
+                  <div class="dff-tab current">
+                    <form action="/register" method="post">
+                      <div class="row">
+                        <div class="col-lg-12 no-pdd">
+                          <div class="sn-field">
+                            <input type="text" name="name" placeholder="Ad" />
+                            <i class="la la-user"></i>
+                          </div>
+                        </div>
+                        <div class="col-lg-12 no-pdd">
+                          <div class="sn-field">
+                            <input
+                              type="text"
+                              name="lastname"
+                              placeholder="Soyad"
+                            />
+                            <i class="la la-user"></i>
+                          </div>
+                        </div>
+                        <div class="col-lg-12 no-pdd">
+                          <div class="sn-field">
+                            <input
+                              type="email"
+                              name="email"
+                              placeholder="Mail Adresi"
+                            />
+                            <i class="la la-envelope"></i>
+                          </div>
+                        </div>
+                        <div class="col-lg-12 no-pdd">
+                          <div class="sn-field">
+                            <input
+                              type="text"
+                              name="phone"
+                              placeholder="Cep Telefonu"
+                            />
+                            <i class="la la-mobile"></i>
+                          </div>
+                        </div>
+                        <div class="col-lg-12 no-pdd">
+                          <div class="sn-field">
+                            <select name="membership_type">
+                              <option>Üyelik Türü</option>
+                              <option>Kurumsal</option>
+                              <option>Kişisel</option>
+                            </select>
+                            <i class="la la-dropbox"></i>
+                            <span><i class="fa fa-ellipsis-h"></i></span>
+                          </div>
+                        </div>
+                        <div class="col-lg-12 no-pdd">
+                          <div class="sn-field">
+                            <input
+                              type="text"
+                              name="reference_code"
+                              placeholder="Referans Kodu"
+                            />
+                            <i class="las la-wallet"></i>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-12 no-pdd">
+                          <div class="sn-field">
+                            <input
+                              type="password"
+                              name="password"
+                              placeholder="Şifre"
+                            />
+                            <i class="la la-lock"></i>
+                          </div>
+                        </div>
+                        <div class="col-lg-12 no-pdd">
+                          <div class="sn-field">
+                            <input
+                              type="password"
+                              name="password_repeat"
+                              placeholder="Şifreyi Onayla"
+                            />
+                            <i class="la la-lock"></i>
+                          </div>
+                        </div>
+                        <div class="col-lg-12 no-pdd">
+                          <div class="checky-sec st2">
+                            <div class="fgt-sec">
+                              <input type="checkbox" name="check" id="c2" />
+                              <label for="c2">
+                                <span></span>
+                              </label>
+                              <label class="small" for="c2"
+                                >Üyelik sözleşmesini onaylıyorum.</label
+                              >
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-12 no-pdd">
+                          <button type="submit" value="submit">Kayıt Ol</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%- include('./partials/_footer.ejs') -%>
+    </div>
+  </body>
+</html>
